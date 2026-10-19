@@ -27,33 +27,138 @@
 </div>
 
 <script>
-    let jsonData = {};
+    // Las preguntas integradas directamente para evitar errores de conexión
+    const jsonData = {
+      "title": "Cuestionario Integral: Índice de Desarrollo Humano (IDH) y Lectura Crítica",
+      "questions": [
+        {
+          "id": 1,
+          "question": "¿Cuál fue el objetivo principal del Programa de las Naciones Unidas para el Desarrollo (PNUD) al introducir el IDH en 1990?",
+          "options": [
+            "Sustituir la evaluación del progreso basada únicamente en el Producto Interno Bruto (PIB).",
+            "Medir de forma exclusiva la tasa de inflación y el endeudamiento externo de los países.",
+            "Establecer un impuesto global unificado para las naciones en desarrollo.",
+            "Sustituir los censos nacionales de población por estimaciones satelitales."
+          ],
+          "correctAnswer": "Sustituir la evaluación del progreso basada únicamente en el Producto Interno Bruto (PIB)."
+        },
+        {
+          "id": 2,
+          "question": "¿Qué pensador central influyó notablemente con su enfoque sobre las capacidades en la creación del IDH impulsado por Mahbub ul Haq?",
+          "options": [
+            "John Maynard Keynes.",
+            "Amartya Sen.",
+            "Adam Smith.",
+            "Milton Friedman."
+          ],
+          "correctAnswer": "Amartya Sen."
+        },
+        {
+          "id": 3,
+          "question": "¿Cuáles son las tres dimensiones fundamentales que integran el cálculo del Índice de Desarrollo Humano (IDH)?",
+          "options": [
+            "Seguridad ciudadana, empleo formal y estabilidad política.",
+            "Salud, educación y nivel de vida.",
+            "Crecimiento industrial, exportaciones y balanza comercial.",
+            "Infraestructura urbana, conectividad digital y gasto público."
+          ],
+          "correctAnswer": "Salud, educación y nivel de vida."
+        },
+        {
+          "id": 4,
+          "question": "En la metodología de cálculo del IDH, ¿por qué se utiliza la media geométrica para combinar los índices de salud, educación e ingreso?",
+          "options": [
+            "Porque permite que un valor muy alto compense por completo cualquier deficiencia extrema en otra área.",
+            "Porque un resultado bajo en una dimensión reduce el índice y no se compensa por completo con otra alta.",
+            "Porque es un requisito matemático obligatorio para evitar divisiones entre cero en el software del PNUD.",
+            "Porque da mayor peso absoluto al crecimiento del ingreso nacional bruto."
+          ],
+          "correctAnswer": "Porque un resultado bajo en una dimensión reduce el índice y no se compensa por completo con otra alta."
+        },
+        {
+          "id": 5,
+          "question": "Según el material didáctico y los datos comparables, ¿en qué categoría de desarrollo humano se ubica México con un valor de IDH de 0.789?",
+          "options": [
+            "Muy alto.",
+            "Alto.",
+            "Medio.",
+            "Bajo."
+          ],
+          "correctAnswer": "Alto."
+        },
+        {
+          "id": 6,
+          "question": "¿Qué representa principalmente el IDH ajustado por desigualdad en el caso de México (que pasa de un IDH simple de 0.789 a un valor aproximado de 0.646)?",
+          "options": [
+            "Una nueva categoría oficial de pobreza multidimensional establecida por el INEGI.",
+            "Las pérdidas en salud, educación e ingreso asociadas a su distribución desigual en la población.",
+            "La tasa de desempleo estructural corregida por la inflación anual.",
+            "El porcentaje exacto de la población que vive en asentamientos irregulares."
+          ],
+          "correctAnswer": "Las pérdidas en salud, educación e ingreso asociadas a su distribución desigual en la población."
+        },
+        {
+          "id": 7,
+          "question": "De acuerdo con el contraste presentado en el material, ¿cuál es una diferencia clave entre el IDH y la medición de la pobreza multidimensional en México?",
+          "options": [
+            "El IDH mide exclusivamente el sector industrial, mientras que la pobreza mide el sector agrícola.",
+            "El IDH resume logros promedio, mientras que la pobreza multidimensional identifica carencias sociales e ingresos insuficientes específicos.",
+            "El IDH es calculado por el INEGI y la pobreza por el PNUD internacional.",
+            "No existe ninguna diferencia metodológica, ambas utilizan exactamente las mismas variables."
+          ],
+          "correctAnswer": "El IDH resume logros promedio, mientras que la pobreza multidimensional identifica carencias sociales e ingresos insuficientes específicos."
+        },
+        {
+          "id": 8,
+          "question": "Según el análisis crítico del material didáctico, ¿cuál de las siguientes dimensiones importantes del desarrollo NO aparece reflejada de manera directa en el IDH tradicional?",
+          "options": [
+            "La esperanza de vida al nacer.",
+            "Los años esperados y promedio de escolaridad.",
+            "La seguridad ciudadana (homicidios y desapariciones).",
+            "El ingreso nacional bruto per cápita."
+          ],
+          "correctAnswer": "La seguridad ciudadana (homicidios y desapariciones)."
+        },
+        {
+          "id": 9,
+          "question": "¿Qué perspectiva o enfoque complementario se sugiere en el material para entender las relaciones sociales y el origen de los resultados que el IDH por sí solo no explica?",
+          "options": [
+            "La economía política, preguntando quién controla los recursos y cómo se distribuye el excedente.",
+            "La teoría monetarista clásica sobre la emisión de billetes y monedas.",
+            "El análisis demográfico enfocado exclusivamente en tasas de natalidad rural.",
+            "La contabilidad corporativa de las empresas transnacionales."
+          ],
+          "correctAnswer": "La economía política, preguntando quién controla los recursos y cómo se distribuye el excedente."
+        },
+        {
+          "id": 10,
+          "question": "De acuerdo con el cuadro de síntesis de indicadores complementarios, ¿qué fuente o indicador nacional se asocia con el análisis de las condiciones de trabajo y la informalidad en México?",
+          "options": [
+            "El Banco de México a través de las reservas internacionales.",
+            "La Encuesta Nacional de Ocupación y Empleo (ENOE) del INEGI.",
+            "El registro civil de matrimonios y defunciones.",
+            "El censo de transporte público urbano."
+          ],
+          "correctAnswer": "La Encuesta Nacional de Ocupación y Empleo (ENOE) del INEGI."
+        }
+      ]
+    };
 
-    const urlJSON = "examen.json";
-
-    fetch(urlJSON)
-        .then(res => res.json())
-        .then(data => {
-            jsonData = data;
-            document.getElementById("exam-title").innerText = data.title;
-            let container = document.getElementById("quiz-container");
-            
-            data.questions.forEach((q, index) => {
-                let html = `<div class="question-box">
-                    <div class="question-title">${index + 1}. ${q.question}</div>`;
-                q.options.forEach((opt, optIndex) => {
-                    html += `<label class="option">
-                        <input type="radio" name="q${q.id}" value="${opt}"> ${opt}
-                    </label>`;
-                });
-                html += `</div>`;
-                container.innerHTML += html;
-            });
-        })
-        .catch(err => {
-            document.getElementById("exam-title").innerText = "Error al cargar el examen";
-            console.error(err);
+    // Cargar título y preguntas directamente
+    document.getElementById("exam-title").innerText = jsonData.title;
+    let container = document.getElementById("quiz-container");
+    
+    jsonData.questions.forEach((q, index) => {
+        let html = `<div class="question-box">
+            <div class="question-title">${index + 1}. ${q.question}</div>`;
+        q.options.forEach((opt) => {
+            html += `<label class="option">
+                <input type="radio" name="q${q.id}" value="${opt}"> ${opt}
+            </label>`;
         });
+        html += `</div>`;
+        container.innerHTML += html;
+    });
 
     function calificar() {
         let correctas = 0;
