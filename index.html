@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen interactivo</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f6f9; color: #333; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 600px; }
+        h1 { font-size: 20px; color: #2c3e50; margin-bottom: 20px; text-align: center; }
+        .question-box { margin-bottom: 20px; }
+        .question-title { font-weight: bold; font-size: 16px; margin-bottom: 12px; }
+        .option { display: block; background: #f8f9fa; border: 1px solid #ddd; padding: 10px 15px; margin-bottom: 8px; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        .option:hover { background: #e9ecef; }
+        .option input { margin-right: 10px; }
+        .btn { background: #238636; color: white; border: none; padding: 10px 20px; font-size: 16px; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; }
+        .btn:hover { background: #2ea043; }
+        #result { text-align: center; font-size: 18px; font-weight: bold; margin-top: 20px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 id="exam-title">Cargando examen...</h1>
+    <div id="quiz-container"></div>
+    <button class="btn" id="submit-btn" onclick="calificar()">Enviar respuestas</button>
+    <div id="result"></div>
+</div>
+
+<script>
+    let jsonData = {};
+
+    // AQUÍ ESTÁ TU ENLACE RAW DE GITHUB QUE CARGARÁ LAS PREGUNTAS AUTOMÁTICAMENTE
+    const urlJSON = "https://raw.githubusercontent.com/cesar16cr-tech/exame/main/examen.json";
+
+    fetch(urlJSON)
+        .then(res => res.json())
+        .then(data => {
+            jsonData = data;
+            document.getElementById("exam-title").innerText = data.title;
+            let container = document.getElementById("quiz-container");
+            
+            data.questions.forEach((q, index) => {
+                let html = `<div class="question-box">
+                    <div class="question-title">${index + 1}. ${q.question}</div>`;
+                q.options.forEach((opt, optIndex) => {
+                    html += `<label class="option">
+                        <input type="radio" name="q${q.id}" value="${opt}"> ${opt}
+                    </label>`;
+                });
+                html += `</div>`;
+                container.innerHTML += html;
+            });
+        })
+        .catch(err => {
+            document.getElementById("exam-title").innerText = "Error al cargar el examen";
+            console.error(err);
+        });
+
+    function calificar() {
+        let correctas = 0;
+        jsonData.questions.forEach(q => {
+            let seleccionada = document.querySelector(`input[name="q${q.id}"]:checked`);
+            if (seleccionada && seleccionada.value === q.correctAnswer) {
+                correctas++;
+            }
+        });
+        document.getElementById("result").innerText = `Obtuviste ${correctas} de ${jsonData.questions.length} correctas.`;
+    }
+</script>
+</body>
+</html>
