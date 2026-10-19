@@ -1,2 +1,0 @@
-# exame
-practica de examen
